@@ -3,7 +3,9 @@
 
 #include <QObject>
 
+#include "article.h"
 
+#include <QMetaType>
 /**
  * @todo[qdot, LOW] Doctrine2Qt could be a nice utility to develop.
  *
@@ -30,12 +32,14 @@ class Revision : public QObject
     Q_PROPERTY (int     versionNumber  READ getVersionNumber  WRITE setVersionNumber )
 
     Q_PROPERTY (QString title          READ getTitle          WRITE setTitle         )
-
+    Q_PROPERTY (Article* article READ getArticle WRITE setArticle) 
 
 private:
     int     m_revisionNumber;
     int     m_versionNumber;
     QString m_title;
+
+    Article *m_article; 
 
 public:
     explicit Revision(QObject *parent = 0);
@@ -49,10 +53,21 @@ public:
     inline QString getTitle()                               { return m_title;                    }
     inline void    setTitle(const QString title)            { m_title = title;                   }
 
+    inline Article *getArticle() { return m_article; }
+    inline void setArticle(Article* article) { m_article = article; m_article->addRevision(this); }
+
+    QVariant toQVariant(QStringList ignoredProperties = QStringList(QString(QLatin1String("objectName")))) {       
+        return QJson::QObjectHelper::qobject2qvariant(this, ignoredProperties ); 
+    }
+
+
 signals:
 
 public slots:
 
 };
+
+Q_DECLARE_METATYPE(Revision*)
+Q_DECLARE_METATYPE(QList<Revision*>)
 
 #endif // REVISION_H
