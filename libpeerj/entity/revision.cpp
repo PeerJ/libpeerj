@@ -1,6 +1,6 @@
-#include "revision.h"
+#include "article.h"
 
-Revision::Revision(QObject *parent) :
+Article::Article(QObject *parent) :
     QObject(parent)
 {
 }
