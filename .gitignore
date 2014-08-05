@@ -1,0 +1,5 @@
+Makefile
+*.o
+moc_*.cpp
+lib*.so*
+libpeerj/peerjtest/peerjtest
