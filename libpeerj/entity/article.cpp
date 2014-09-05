@@ -19,3 +19,9 @@ QVariant Article::toQVariant(QStringList ignoredProperties) {
     return v;
 }
 
+bool Article::fromQVariant(QVariant v)
+{
+    QJson::QObjectHelper::qvariant2qobject(v.toMap(), this);
+    return true;
+}
+

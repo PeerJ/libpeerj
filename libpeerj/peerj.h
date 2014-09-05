@@ -3,11 +3,25 @@
 
 #include "peerj_global.h"
 
-class PEERJSHARED_EXPORT Peerj
+#include <QObject>
+#include <QSslError>
+#include <QList>
+
+class QNetworkAccessManager;
+class QNetworkReply;
+
+class PEERJSHARED_EXPORT PeerJ : public QObject
 {
+Q_OBJECT
 
 public:
-    Peerj();
+    PeerJ();
+    void getManuscriptsOwned(QNetworkAccessManager *nam);
+
+public slots:
+    void onGetManuscriptsOwned();
+    void onSSLErrors(QNetworkReply* r, const QList<QSslError> & errors);
+    void onNAMFinished(QNetworkReply *r);
 };
 
 #endif // PEERJ_H

@@ -3,6 +3,8 @@
 #include "entity/article.h"
 #include "entity/revision.h"
 
+#include "peerj.h"
+
 #include <qjson/serializer.h>
 #include <qjson/qobjecthelper.h>
 #include <QDebug>
@@ -10,7 +12,7 @@
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
-    
+    /*
     Article art;
     art.setTitle("Wow!");
 
@@ -23,6 +25,8 @@ int main(int argc, char *argv[])
 
     QJson::Serializer  serializer;
     qDebug() << serializer.serialize(art.toQVariant());
+    */
+    PeerJ pj;
 
     return a.exec();
 }

@@ -6,6 +6,7 @@
 #include <QMetaType>
 #include <qjson/qobjecthelper.h>
 
+#include <QDebug>
 
 class Revision;
 
@@ -49,7 +50,7 @@ public:
     inline void setVersionNumber(const int versionNumber)   { m_versionNumber = versionNumber;   }
 
     inline QString getTitle()                               { return m_title;                    }
-    inline void    setTitle(const QString title)            { m_title = title;                   }
+    inline void    setTitle(const QString title)            { m_title = title;    qDebug() << title;               }
 
     inline QList<Revision*> getRevisions() { return m_revisions; } 
     inline void setRevisions(const QList<Revision*> revisions) { m_revisions = revisions; } 
@@ -57,7 +58,7 @@ public:
     inline void addRevision(Revision* revision)       { m_revisions.append(revision); }
 
     QVariant toQVariant(QStringList ignoredProperties = QStringList(QString(QLatin1String("objectName"))));
-
+    bool fromQVariant(QVariant v);
 
 signals:
 
