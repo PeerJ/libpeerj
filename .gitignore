@@ -5,3 +5,5 @@ lib*.so*
 libpeerj/peerjtest/peerjtest
 *.pro.user
 *.kate-swp
+*.swp
+*.swo

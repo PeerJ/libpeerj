@@ -1,5 +1,6 @@
 #include "article.h"
 #include "revision.h"
+#include "file.h"
 
 Article::Article(QObject *parent) :
     QObject(parent)
@@ -22,6 +23,12 @@ QVariant Article::toQVariant(QStringList ignoredProperties) {
 bool Article::fromQVariant(QVariant v)
 {
     QJson::QObjectHelper::qvariant2qobject(v.toMap(), this);
+
+    Q_FOREACH(QVariant fv, v.toMap()["files"].toList()) {
+        File *f = new File();
+        f->fromQVariant(fv);
+    }
+//    Q_FOREACH(QVariant m, v.toMap()["revisions
     return true;
 }
 

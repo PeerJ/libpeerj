@@ -2,6 +2,7 @@
 #define FILE_H
 
 #include <QObject>
+#include <QStringList>
 
 #include "util.h"
 
@@ -20,7 +21,8 @@ class File : public QObject
 public:
     explicit File(QObject *parent = 0);
 
-    
+    QVariant toQVariant(QStringList ignoredProperties = QStringList(QString(QLatin1String("objectName"))));
+    bool fromQVariant(QVariant v);
     
 signals:
 

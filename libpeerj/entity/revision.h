@@ -59,7 +59,7 @@ public:
     QVariant toQVariant(QStringList ignoredProperties = QStringList(QString(QLatin1String("objectName")))) {       
         return QJson::QObjectHelper::qobject2qvariant(this, ignoredProperties ); 
     }
-
+    bool fromQVariant(QVariant v);
 
 signals:
 

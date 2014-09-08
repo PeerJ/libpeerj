@@ -9,6 +9,7 @@
 #define HOST_URL "http://peerj.com/"
 
 #include "entity/article.h"
+#include "entity/revision.h"
 
 PeerJ::PeerJ()
 {
@@ -35,13 +36,20 @@ void PeerJ::onGetManuscriptsOwned() {
     QNetworkReply * const r = qobject_cast<QNetworkReply*>(sender()); 
 
     QJson::Parser parser; bool ok;
+    QByteArray ba = r->readAll();
 
-    QVariant result = parser.parse(r->readAll(), &ok);
+    qDebug() << ba;
+
+    QVariant result = parser.parse(ba, &ok);
 
     Q_FOREACH(QVariant m, result.toList()) {
+        // qDebug() << "AAAAAAAA" << m;
         Article *a = new Article();
         a->fromQVariant(m);
+        Revision *r = new Revision();
+        r->fromQVariant(m);
         qDebug() << "IIIIIIII" << a->toQVariant();
+        qDebug() << "EEEEEEEE" << r->toQVariant();
     }
 
     r->deleteLater();
