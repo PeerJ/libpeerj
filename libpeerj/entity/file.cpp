@@ -4,8 +4,12 @@
 #include "qjson/qobjecthelper.h"
 
 File::File(QObject *parent) :
-    QObject(parent)
+    Entity(parent)
 {
+}
+
+QVariant File::toQVariant(QStringList ignoredProperties) {
+    return  QJson::QObjectHelper::qobject2qvariant(this, ignoredProperties );
 }
 
 bool File::fromQVariant(QVariant v)

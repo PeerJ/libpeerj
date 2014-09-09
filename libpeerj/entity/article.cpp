@@ -3,10 +3,11 @@
 #include "file.h"
 
 Article::Article(QObject *parent) :
-    QObject(parent)
+    Entity(parent)
 {
     qRegisterMetaType< Revision* >();
     qRegisterMetaType< QList<Revision*> >();
+    m_versionNumber = 0;
 }
 
 QVariant Article::toQVariant(QStringList ignoredProperties) {       
@@ -31,4 +32,34 @@ bool Article::fromQVariant(QVariant v)
 //    Q_FOREACH(QVariant m, v.toMap()["revisions
     return true;
 }
+
+void Article::toSettings(QSettings *s, QStringList ignoredProperties)
+{
+    ignoredProperties.append("revisions");
+    Entity::toSettings(s, ignoredProperties);
+    s->beginGroup(configId());
+    Q_FOREACH(Revision *r, m_revisions) {
+        s->beginGroup("revisions");
+        r->toSettings(s);
+        s->endGroup();
+    }
+    s->endGroup();
+}
+
+void Article::fromSettings(QSettings *s, QString cID)
+{
+    Entity::fromSettings(s, cID);
+    if (cID.length() > 0)
+        s->beginGroup(cID);
+    s->beginGroup("revisions");
+    Q_FOREACH(QString rs, s->childGroups()) {
+        Revision *r = new Revision();
+        r->fromSettings(s, rs);
+        r->setArticle(this);
+    }
+    s->endGroup();
+    if (cID.length() > 0)
+        s->endGroup();
+}
+
 

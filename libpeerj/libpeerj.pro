@@ -16,13 +16,16 @@ DEFINES += PEERJ_LIBRARY
 SOURCES += peerj.cpp \
     entity/revision.cpp \
     entity/file.cpp \
-    entity/article.cpp
+    entity/article.cpp \
+    entity/entity.cpp
 
 HEADERS += peerj.h\
         peerj_global.h \
     entity/revision.h \
     entity/file.h \
-    entity/article.h
+    entity/article.h \
+    entity/entity.h \
+    entity/util.h
 
 unix:!symbian {
     maemo5 {
@@ -31,4 +34,8 @@ unix:!symbian {
         target.path = /usr/lib
     }
     INSTALLS += target
+}
+
+win32 {
+    LIBS += -lqjson
 }

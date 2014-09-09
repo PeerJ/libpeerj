@@ -3,7 +3,11 @@
 
 #include <QObject>
 
+
+
 #include "article.h"
+
+
 
 #include <QMetaType>
 /**
@@ -11,6 +15,8 @@
  *
  */
 
+
+class File;
 /**
  * Each article has multiple revisions.
  * The current revision of each article is set as the article's "revision" prope
@@ -25,7 +31,7 @@ rty.
  * @ORM\Entity(repositoryClass="peerj\ApiBundle\Repository\RevisionRepository")
  * @Gedmo\Loggable
  */
-class Revision : public QObject
+class Revision : public Entity
 {
     Q_OBJECT
     Q_PROPERTY (int     revisionNumber READ getRevisionNumber WRITE setRevisionNumber)
@@ -34,12 +40,16 @@ class Revision : public QObject
     Q_PROPERTY (QString title          READ getTitle          WRITE setTitle         )
     Q_PROPERTY (Article* article READ getArticle WRITE setArticle) 
 
+    Q_PROPERTY (QList<File*>     files READ getFiles WRITE setFiles)
+
 private:
     int     m_revisionNumber;
     int     m_versionNumber;
     QString m_title;
 
     Article *m_article; 
+    QList<File*> m_files;
+
 
 public:
     explicit Revision(QObject *parent = 0);
@@ -56,10 +66,17 @@ public:
     inline Article *getArticle() { return m_article; }
     inline void setArticle(Article* article) { m_article = article; m_article->addRevision(this); }
 
-    QVariant toQVariant(QStringList ignoredProperties = QStringList(QString(QLatin1String("objectName")))) {       
-        return QJson::QObjectHelper::qobject2qvariant(this, ignoredProperties ); 
-    }
+    inline QList<File*> getFiles() { return m_files; }
+    inline void setFiles(const QList<File*> files) { m_files = files; }
+
+    inline void addFile(File* file)       { m_files.append(file); }
+
+    QVariant toQVariant(QStringList ignoredProperties = QStringList(QString(QLatin1String("objectName"))));
     bool fromQVariant(QVariant v);
+
+    void toSettings(QSettings *s, QStringList ignoredProperties=(QStringList()<<"objectName"<<"article"));
+    void fromSettings(QSettings *s, QString cID=QString());
+
 
 signals:
 

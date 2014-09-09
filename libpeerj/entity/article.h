@@ -8,6 +8,8 @@
 
 #include <QDebug>
 
+#include "entity.h"
+
 class Revision;
 
 /**
@@ -29,7 +31,7 @@ rty.
  * @ORM\Entity(repositoryClass="peerj\ApiBundle\Repository\ArticleRepository")
  * @Gedmo\Loggable
  */
-class Article : public QObject
+class Article : public Entity
 {
     Q_OBJECT
     Q_PROPERTY (int     versionNumber  READ getVersionNumber  WRITE setVersionNumber )
@@ -60,10 +62,18 @@ public:
     QVariant toQVariant(QStringList ignoredProperties = QStringList(QString(QLatin1String("objectName"))));
     bool fromQVariant(QVariant v);
 
+    void toSettings(QSettings *s, QStringList ignoredProperties=QStringList(QString("objectName")));
+    void fromSettings(QSettings *s, QString cID=QString());
+
+    //QList<Article*> getFromSettings(QSettings *a);
+
 signals:
 
 public slots:
 
 };
+
+Q_DECLARE_METATYPE(Article*)
+Q_DECLARE_METATYPE(QList<Article*>)
 
 #endif // ARTICLE_H

@@ -14,9 +14,13 @@ class PEERJSHARED_EXPORT PeerJ : public QObject
 {
 Q_OBJECT
 
+private:
+    bool m_save;
+
 public:
     PeerJ();
-    void getManuscriptsOwned(QNetworkAccessManager *nam);
+    void getManuscriptsOwned(QNetworkAccessManager *nam, bool save=true);
+
 
 public slots:
     void onGetManuscriptsOwned();

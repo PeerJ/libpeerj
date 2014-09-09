@@ -13,16 +13,12 @@
 
 PeerJ::PeerJ()
 {
+    qRegisterMetaType<Article*>();
 }
 
-void PeerJ::getManuscriptsOwned(QNetworkAccessManager *nam)
+void PeerJ::getManuscriptsOwned(QNetworkAccessManager *nam, bool save)
 {
-    qDebug() << __FUNCTION__;
-
-/*
-    connect(nam, SIGNAL(finished(QNetworkReply*)), this, SLOT(onNAMFinished(QNetworkReply *)));// , Qt::UniqueConnection);
-    connect(nam, SIGNAL(sslErrors(QNetworkReply*, const QList<QSslError> &)), this, SLOT(onSSLErrors(QNetworkReply*, const QList<QSslError> &)));
-*/
+    m_save = save;
     connect(nam->get(QNetworkRequest(QUrl("https://peerj.com/manuscripts/owned.json"))),
         SIGNAL(finished()), this, SLOT(onGetManuscriptsOwned()));
 }
@@ -42,17 +38,29 @@ void PeerJ::onGetManuscriptsOwned() {
 
     QVariant result = parser.parse(ba, &ok);
 
+    QSettings s("PeerJ");
+    s.beginGroup("Article");
+
+    QList<Article*> rval;
+
     Q_FOREACH(QVariant m, result.toList()) {
         // qDebug() << "AAAAAAAA" << m;
         Article *a = new Article();
         a->fromQVariant(m);
         Revision *r = new Revision();
         r->fromQVariant(m);
+        r->setArticle(a);
         qDebug() << "IIIIIIII" << a->toQVariant();
         qDebug() << "EEEEEEEE" << r->toQVariant();
+
+        rval.append(a);
+
+        if (m_save)
+            a->toSettings(&s);
     }
 
     r->deleteLater();
+
 }
 
 void PeerJ::onNAMFinished(QNetworkReply *r)
