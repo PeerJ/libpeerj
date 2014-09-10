@@ -10,14 +10,17 @@ Article::Article(QObject *parent) :
     m_versionNumber = 0;
 }
 
-QVariant Article::toQVariant(QStringList ignoredProperties) {       
+QVariant Article::toQVariant(QStringList ignoredProperties) {
+    qDebug() << "HERE?";
     ignoredProperties.append("revisions");
     QVariantMap v = QJson::QObjectHelper::qobject2qvariant(this, ignoredProperties ); 
     QVariantList revisions;
+    qDebug() << "OR HERE?";
     Q_FOREACH(Revision* r, m_revisions) {
         revisions.append(r->toQVariant());
     }
     v["revisions"] = revisions;
+    qDebug() << "MAYBE HERE?";
     return v;
 }
 

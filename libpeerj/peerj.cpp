@@ -50,8 +50,8 @@ void PeerJ::onGetManuscriptsOwned() {
         Revision *r = new Revision();
         r->fromQVariant(m);
         r->setArticle(a);
-        qDebug() << "IIIIIIII" << a->toQVariant();
-        qDebug() << "EEEEEEEE" << r->toQVariant();
+        //qDebug() << "IIIIIIII" << a->toQVariant();
+        //qDebug() << "EEEEEEEE" << r->toQVariant();
 
         rval.append(a);
 

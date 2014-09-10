@@ -8,6 +8,8 @@
 
 #include <QDebug>
 
+#include "../peerj_global.h"
+
 #include "entity.h"
 
 class Revision;
@@ -31,7 +33,7 @@ rty.
  * @ORM\Entity(repositoryClass="peerj\ApiBundle\Repository\ArticleRepository")
  * @Gedmo\Loggable
  */
-class Article : public Entity
+class PEERJSHARED_EXPORT Article : public Entity
 {
     Q_OBJECT
     Q_PROPERTY (int     versionNumber  READ getVersionNumber  WRITE setVersionNumber )
@@ -52,7 +54,7 @@ public:
     inline void setVersionNumber(const int versionNumber)   { m_versionNumber = versionNumber;   }
 
     inline QString getTitle()                               { return m_title;                    }
-    inline void    setTitle(const QString title)            { m_title = title;    qDebug() << title;               }
+    inline void    setTitle(const QString title)            { m_title = title;    }
 
     inline QList<Revision*> getRevisions() { return m_revisions; } 
     inline void setRevisions(const QList<Revision*> revisions) { m_revisions = revisions; } 

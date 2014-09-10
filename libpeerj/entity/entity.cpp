@@ -34,7 +34,7 @@ void Entity::fromSettings(QSettings *s, QString cID)
     if (cID.length() > 0)
         s->beginGroup(cID);
     Q_FOREACH(QString name, s->childKeys()) {
-        this->setProperty(name.toAscii().constData(), s->value(name));
+        this->setProperty(name.toLatin1().constData(), s->value(name));
     }
     if (cID.length() > 0)
         s->endGroup();

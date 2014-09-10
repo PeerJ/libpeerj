@@ -18,3 +18,8 @@ bool File::fromQVariant(QVariant v)
     return true;
 }
 
+void File::toSettings(QSettings *s, QStringList ignoredProperties)
+{
+    Entity::toSettings(s, ignoredProperties);
+}
+

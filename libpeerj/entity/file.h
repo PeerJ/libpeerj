@@ -47,6 +47,7 @@ public:
 
     QVariant toQVariant(QStringList ignoredProperties = QStringList(QString(QLatin1String("objectName"))));
     bool fromQVariant(QVariant v);
+    void toSettings(QSettings *s, QStringList ignoredProperties=(QStringList()<<"objectName"<<"revision"));
 
 signals:
 

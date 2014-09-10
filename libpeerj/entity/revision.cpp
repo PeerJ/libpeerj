@@ -11,6 +11,8 @@ Revision::Revision(QObject *parent) :
 }
 
 QVariant Revision::toQVariant(QStringList ignoredProperties) {
+    qDebug() << "REV: MAYBE HERE?";
+
     ignoredProperties.append("files");
     QVariantMap v = QJson::QObjectHelper::qobject2qvariant(this, ignoredProperties );
     QVariantList files;
@@ -28,7 +30,7 @@ bool Revision::fromQVariant(QVariant v)
         File *f = new File();
         f->fromQVariant(fv);
         this->addFile(f);
-        qDebug() << f;
+        // qDebug() << f;
     }
 //    Q_FOREACH(QVariant m, v.toMap()["revisions
     return true;

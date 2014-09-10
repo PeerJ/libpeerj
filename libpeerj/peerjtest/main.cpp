@@ -31,22 +31,23 @@ int main(int argc, char *argv[])
     QJson::Serializer  serializer;
     qDebug() << serializer.serialize(art.toQVariant());
     */
+/*
     PeerJ pj;
-
-    QNetworkAccessManager *nam = new QNetworkAccessManager();
-    nam->cookieJar()->setCookiesFromUrl(
+    QNetworkAccessManager nam; // = new QNetworkAccessManager();
+    nam.cookieJar()->setCookiesFromUrl(
                 QNetworkCookie::parseCookies(QByteArray::fromBase64(QSettings("PeerJ").value("cookie").toByteArray())),
                 QUrl("https://peerj.com/manuscripts/")
                 );
-//    pj.getManuscriptsOwned(nam);
-    //pj.getFromSettings();
 
+    pj.getManuscriptsOwned(&nam);
+    //pj.getFromSettings();
+*/
     // Article art;
     QSettings s("PeerJ");
     s.beginGroup("Article");
 
-    Q_FOREACH(Article* art, Entity::fromSettings<Article>(s)) {
-        qDebug() << art->toQVariant();
+    Q_FOREACH(Article* art, Entity::fromSettings<Article>(&s)) {
+        // qDebug() << art->toQVariant();
     }
 
     return a.exec();
