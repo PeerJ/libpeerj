@@ -12,6 +12,8 @@
 
 #include "entity.h"
 
+#include "util.h"
+
 class Revision;
 
 /**
@@ -40,6 +42,10 @@ class PEERJSHARED_EXPORT Article : public Entity
 
     Q_PROPERTY (QString title          READ getTitle          WRITE setTitle         )
     Q_PROPERTY (QList<Revision*> revisions READ getRevisions WRITE setRevisions) 
+
+    Q_PROPERTY (QString  status     READ getStatus WRITE setStatus)
+
+    DEFINE_ACCESSORS(QString, status, Status)
 
 
 private:

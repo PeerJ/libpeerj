@@ -31,7 +31,7 @@ rty.
  * @ORM\Entity(repositoryClass="peerj\ApiBundle\Repository\RevisionRepository")
  * @Gedmo\Loggable
  */
-class Revision : public Entity
+class PEERJSHARED_EXPORT Revision : public Entity
 {
     Q_OBJECT
     Q_PROPERTY (int     revisionNumber READ getRevisionNumber WRITE setRevisionNumber)

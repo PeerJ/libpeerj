@@ -16,7 +16,10 @@ public:
     explicit Entity(QObject *parent = 0);
 
     int getId() const { return m_id; }
-    void setId(const int id) { m_id = id; }
+    void setId(const int id) {
+        mapById[metaObject()->className()].insert(id, this);
+        m_id = id;
+    }
 
     QString configId() {
         QString objectID;
@@ -30,6 +33,7 @@ public:
     virtual void fromSettings(QSettings *s, QString cID=QString());
 
     static QList<Entity*> fromSettings(QSettings *s);
+
     template <class EDerived>
     static QList<EDerived*> fromSettings(QSettings *s) {
         QList<EDerived*> rval;
@@ -40,6 +44,9 @@ public:
         }
         return rval;
     }
+
+protected:
+    static QMap<const char*, QMap<int, Entity*> > mapById;
 
 signals:
 

@@ -11,7 +11,7 @@
 #include "entity.h"
 
 
-class File : public Entity
+class PEERJSHARED_EXPORT File : public Entity
 {
     Q_OBJECT
 
