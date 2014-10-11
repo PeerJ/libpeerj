@@ -4,6 +4,8 @@
 
 #include <QMetaProperty>
 
+QMap<char const *, QMap<int, Entity*> > Entity::mapById;
+
 Entity::Entity(QObject *parent) :
     QObject(parent)
 {
