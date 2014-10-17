@@ -39,3 +39,6 @@ unix:!symbian {
 win32 {
     LIBS += -lqjson
 }
+
+INCLUDEPATH += $$PWD/../../qjson/
+LIBS += $$PWD/../../qjson/
