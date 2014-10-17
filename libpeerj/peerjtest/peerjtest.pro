@@ -19,7 +19,7 @@ win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../release/ -lpeerj
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../debug/ -lpeerj
 else:unix: LIBS += -L$$OUT_PWD/../ -lpeerj
 
-LIBS+= -lqjson -L$$PWD/../../../qjson/
+LIBS+= -L$$PWD/../../../qjson/ -lqjson
 
 INCLUDEPATH += $$PWD/../ $$PWD/../../../qjson/
 DEPENDPATH += $$PWD/../
