@@ -41,4 +41,4 @@ win32 {
 }
 
 INCLUDEPATH += $$PWD/../../qjson/
-LIBS += $$PWD/../../qjson/
+LIBS += -L$$PWD/../../qjson/lib/
