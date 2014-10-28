@@ -10,6 +10,21 @@ Revision::Revision(QObject *parent) :
     m_versionNumber  = 0;
 }
 
+QList<File *> Revision::getFiles(QString type)
+{
+    if (type.isEmpty())
+        return m_files;
+    else {
+        QList<File*> rval;
+        Q_FOREACH(File* f, m_files) {
+            if (f->getType() == type) {
+                rval.append(f);
+            }
+        }
+        return rval;
+    }
+}
+
 QVariant Revision::toQVariant(QStringList ignoredProperties) {
     qDebug() << "REV: MAYBE HERE?";
 

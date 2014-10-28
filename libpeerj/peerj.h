@@ -20,12 +20,13 @@ private:
 public:
     PeerJ();
     void getManuscriptsOwned(QNetworkAccessManager *nam, bool save=true);
-
+    void getManuscriptsFiles(QNetworkAccessManager *nam, bool save=true);
 
 public slots:
     void onGetManuscriptsOwned();
     void onSSLErrors(QNetworkReply* r, const QList<QSslError> & errors);
     void onNAMFinished(QNetworkReply *r);
+    void onGetManuscriptsFiles();
 };
 
 #endif // PEERJ_H

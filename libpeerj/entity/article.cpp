@@ -27,12 +27,18 @@ QVariant Article::toQVariant(QStringList ignoredProperties) {
 bool Article::fromQVariant(QVariant v)
 {
     QJson::QObjectHelper::qvariant2qobject(v.toMap(), this);
-
+    /*
     Q_FOREACH(QVariant fv, v.toMap()["files"].toList()) {
         File *f = new File();
         f->fromQVariant(fv);
     }
-//    Q_FOREACH(QVariant m, v.toMap()["revisions
+    */
+    Q_FOREACH(QVariant m, v.toMap()["revisions"].toList()) {
+        Revision *r = new Revision();
+        r->fromQVariant(m);
+        r->setArticle(this);
+    }
+
     return true;
 }
 

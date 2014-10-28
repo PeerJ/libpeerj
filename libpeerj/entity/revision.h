@@ -66,7 +66,8 @@ public:
     inline Article *getArticle() { return m_article; }
     inline void setArticle(Article* article) { m_article = article; m_article->addRevision(this); }
 
-    inline QList<File*> getFiles() { return m_files; }
+    QList<File*> getFiles(QString type = QString());
+
     inline void setFiles(const QList<File*> files) { m_files = files; }
 
     inline void addFile(File* file)       { m_files.append(file); }
